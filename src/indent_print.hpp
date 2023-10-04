@@ -1,8 +1,8 @@
-#ifndef __INDENT_PRINT_HPP
-#define __INDENT_PRINT_HPP
+#ifndef INDENT_PRINT_HPP
+#define INDENT_PRINT_HPP
 
 #include <iostream>
-#include <stdarg.h>
+#include <cstdarg>
 #include <string>
 
 namespace indent_print
@@ -16,11 +16,9 @@ namespace indent_print
         std::string indentContent = "\t";
 
     public:
-        IndentPrinter()
-        {
-        }
+        IndentPrinter() = default;
 
-        IndentPrinter(const std::string &indentContent)
+        explicit IndentPrinter(const std::string &indentContent)
         {
             this->indentContent = indentContent;
         }
@@ -65,7 +63,7 @@ namespace indent_print
             indentContent = str;
         };
 
-        void __printIndent()
+        void _printIndent()
         {
             for (int i = 0; i < indentLevel; i++)
             {
@@ -76,7 +74,7 @@ namespace indent_print
         void printf(const char* format, ...)
         {
             if (disabled) return;
-            __printIndent();
+            _printIndent();
             va_list args;
             va_start(args, format);
             vprintf(format, args);
@@ -86,7 +84,7 @@ namespace indent_print
         void println(const char *str)
         {
             if (disabled) return;
-            __printIndent();
+            _printIndent();
             std::cout << str << std::endl;
         }
         void println(const std::string &str)
@@ -103,6 +101,6 @@ namespace indent_print
         }
     };
 
-} // namespace IndenPrint
+} // namespace indent_print
 
 #endif // INDENT_PRINT_HPP
